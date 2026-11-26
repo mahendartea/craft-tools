@@ -15,6 +15,10 @@
     "effectcraft": {
       "command": "/Users/mac/.local/bin/effectcraft-mcp",
       "args": []
+    },
+    "vectorcraft": {
+      "command": "/Users/mac/.local/bin/vectorcraft-mcp",
+      "args": []
     }
   }
 }

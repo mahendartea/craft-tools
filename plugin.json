@@ -2,11 +2,11 @@
   "$schema": "https://antigravity.google/schemas/v1/plugin.json",
   "name": "craft-tools",
   "displayName": "Craft Tools",
-  "version": "1.0.0",
-  "description": "MCP access to ArtCraft's creative apps: FigCraft for UI design, FilmCraft for video, AniCraft for 2D animation, and EffectCraft for motion graphics.",
+  "version": "1.1.0",
+  "description": "MCP access to ArtCraft's creative apps: FigCraft for UI design, FilmCraft for video, AniCraft for 2D animation, EffectCraft for motion graphics, and VectorCraft for vector illustration.",
   "logo": "assets/logo.svg",
   "suggestedPrompts": [
-    "Inspect this FigCraft file and summarize its frames and layers",
+    "Inspect this VectorCraft document and export a PDF",
     "Create a 3-second AniCraft animation and render a GIF",
     "Add a title animation to my EffectCraft comp and render a preview"
   ],
@@ -22,10 +22,12 @@
     "filmcraft",
     "anicraft",
     "effectcraft",
+    "vectorcraft",
     "mcp",
     "design",
     "video",
     "animation",
-    "motion-graphics"
+    "motion-graphics",
+    "vector-illustration"
   ]
 }

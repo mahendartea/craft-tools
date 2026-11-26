@@ -2,15 +2,16 @@
 name: craft-tools
 description: >-
   Work with ArtCraft's creative apps through their MCP servers: FigCraft for
-  interface design, FilmCraft for video editing, AniCraft for 2D animation, and
-  EffectCraft for motion graphics. Use when the user asks to inspect, edit,
-  animate, render, or export a .figcraft, .fcproj, .anicraft, or .ecproj file,
-  or asks for design, video, animation, or motion-graphics work.
+  interface design, FilmCraft for video editing, AniCraft for 2D animation,
+  EffectCraft for motion graphics, and VectorCraft for vector illustration. Use
+  when the user asks to inspect, edit, animate, render, or export a .figcraft,
+  .fcproj, .anicraft, .ecproj, or .vectorcraft file, or asks for design, video,
+  animation, motion-graphics, or vector-illustration work.
 ---
 
 # Craft Tools
 
-Four local MCP servers are available. Antigravity namespaces their tools as
+Five local MCP servers are available. Antigravity namespaces their tools as
 `craft-tools_<server>_<tool>`.
 
 | Server | Use it for | First inspection call |
@@ -19,6 +20,7 @@ Four local MCP servers are available. Antigravity namespaces their tools as
 | `filmcraft` | Video editing, colour, audio, export | `doc_inspect` / `project_inspect` |
 | `anicraft` | 2D animation, tweens, timeline, GIF/video | `anicraft_document` |
 | `effectcraft` | Motion graphics, effects, compositing | `get_project` / `get_comp` |
+| `vectorcraft` | Vector illustration, paths, artboards, gradients | `inspect_document` |
 
 ## Working rules
 
@@ -42,5 +44,7 @@ Four local MCP servers are available. Antigravity namespaces their tools as
   `.anicraft` file in the app to see it.
 - **EffectCraft** supports a live bridge (`effectcraft-live`), which adds
   screenshot and `ui_*` tools. Without the bridge it renders on the CPU.
+- **VectorCraft** supports a live bridge (`vectorcraft-live`, port 7979);
+  without it the MCP server uses a headless in-process renderer.
 - Media/project files stay on this Mac. Do not upload them anywhere unless the
   user asks.
