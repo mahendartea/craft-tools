@@ -1,0 +1,20 @@
+{
+  "mcpServers": {
+    "figcraft": {
+      "command": "/Users/mac/.local/bin/figcraft-mcp",
+      "args": []
+    },
+    "filmcraft": {
+      "command": "/Users/mac/.local/bin/filmcraft-mcp",
+      "args": []
+    },
+    "anicraft": {
+      "command": "/Users/mac/.local/bin/anicraft-mcp",
+      "args": []
+    },
+    "effectcraft": {
+      "command": "/Users/mac/.local/bin/effectcraft-mcp",
+      "args": []
+    }
+  }
+}

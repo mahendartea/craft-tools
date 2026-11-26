@@ -1,0 +1,31 @@
+{
+  "$schema": "https://antigravity.google/schemas/v1/plugin.json",
+  "name": "craft-tools",
+  "displayName": "Craft Tools",
+  "version": "1.0.0",
+  "description": "MCP access to ArtCraft's creative apps: FigCraft for UI design, FilmCraft for video, AniCraft for 2D animation, and EffectCraft for motion graphics.",
+  "logo": "assets/logo.svg",
+  "suggestedPrompts": [
+    "Inspect this FigCraft file and summarize its frames and layers",
+    "Create a 3-second AniCraft animation and render a GIF",
+    "Add a title animation to my EffectCraft comp and render a preview"
+  ],
+  "author": {
+    "name": "OpenCode",
+    "url": "https://opencode.ai"
+  },
+  "homepage": "https://opencode.ai",
+  "license": "MIT",
+  "keywords": [
+    "artcraft",
+    "figcraft",
+    "filmcraft",
+    "anicraft",
+    "effectcraft",
+    "mcp",
+    "design",
+    "video",
+    "animation",
+    "motion-graphics"
+  ]
+}
