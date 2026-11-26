@@ -15,7 +15,7 @@ Four local MCP servers are available. Antigravity namespaces their tools as
 
 | Server | Use it for | First inspection call |
 | --- | --- | --- |
-| `figcraft` | UI design, frames, components, prototyping | `doc_inspect` |
+| `figcraft` | UI design, frames, components, prototyping | `inspect_document` |
 | `filmcraft` | Video editing, colour, audio, export | `doc_inspect` / `project_inspect` |
 | `anicraft` | 2D animation, tweens, timeline, GIF/video | `anicraft_document` |
 | `effectcraft` | Motion graphics, effects, compositing | `get_project` / `get_comp` |
