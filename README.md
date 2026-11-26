@@ -12,10 +12,11 @@
 <p align="center">
   <img alt="Antigravity plugin" src="https://img.shields.io/badge/Antigravity-plugin-4285F4?style=flat-square">
   <img alt="MCP stdio" src="https://img.shields.io/badge/MCP-stdio-6a3fd6?style=flat-square">
-  <img alt="macOS" src="https://img.shields.io/badge/platform-macOS-lightgrey?style=flat-square&logo=apple">
+  <img alt="Plugin platform: macOS" src="https://img.shields.io/badge/plugin-macOS-lightgrey?style=flat-square&logo=apple">
+  <img alt="CLI: macOS, Windows, Linux" src="https://img.shields.io/badge/CLI-macOS%20%7C%20Windows%20%7C%20Linux-2dd4bf?style=flat-square">
 </p>
 
-**Craft Tools** is a community [Antigravity](https://antigravity.google/docs/plugins) plugin that bundles local **Model Context Protocol (MCP)** servers for five [ArtCraft](https://getartcraft.com/) creative apps. It lets an AI agent inspect, edit, animate, render, and export real projects using the same commands as the app UI.
+**Craft Tools** is a community [Antigravity](https://antigravity.google/docs/plugins) plugin that bundles local **Model Context Protocol (MCP)** servers for five [ArtCraft](https://getartcraft.com/) creative apps. It lets an AI agent inspect, edit, animate, render, and export real projects using the same commands as the app UI. The bundled skill also documents the apps' command-line tools for macOS, Windows, and Linux.
 
 > Unofficial community project. Not affiliated with ArtCraft or Google.
 
@@ -46,7 +47,7 @@ Or invoke the bundled skill directly:
 | `effectcraft` | **EffectCraft** | Motion graphics: comps, layers, effects, keyframes, render queue |
 | `vectorcraft` | **VectorCraft** | Vector illustration: paths, shapes, artboards, gradients, export |
 
-The plugin also ships the `craft-tools` skill, so Antigravity knows when to reach for each app and how to work safely inside it.
+The plugin also ships the `craft-tools` skill, so Antigravity knows when to reach for each app and how to work safely inside it. The skill includes cross-platform CLI guidance, setup probes, and workflow playbooks under `skills/craft-tools/references/` and `skills/craft-tools/scripts/`.
 
 ## Tool names
 
@@ -78,11 +79,13 @@ Examples:
 
 ## Requirements
 
-Craft Tools is built for **macOS** and expects the five apps plus their MCP wrapper scripts to be available on the machine.
+The Antigravity plugin is **macOS-only** and expects the five apps plus their MCP wrapper scripts. The bundled skill also supports the apps' CLIs on **macOS, Windows, and Linux**.
 
 | Requirement | Notes |
 | --- | --- |
-| macOS 11+ | The desktop apps are macOS builds |
+| macOS 11+ | Required for the Antigravity plugin and its wrappers |
+| Windows 10/11 | CLI path only |
+| Linux (x64/arm64) | CLI path only |
 | [Antigravity](https://antigravity.google/docs/plugins) | App, CLI, or IDE extension |
 | FigCraft, FilmCraft, AniCraft, EffectCraft, VectorCraft | Installed locally |
 | Wrapper scripts | `figcraft-mcp`, `filmcraft-mcp`, `anicraft-mcp`, `effectcraft-mcp`, `vectorcraft-mcp` |
@@ -110,6 +113,27 @@ Start the app with its control server, then reconnect the Antigravity session so
 | AniCraft | — | headless only |
 
 Live mode is optional. Without it, all five servers still run headless and can edit, render, and export files.
+
+## CLI path (macOS, Windows, Linux)
+
+Agents that cannot use the Antigravity plugin can drive the same apps through their CLIs. The skill includes:
+
+- `skills/craft-tools/scripts/find-craft-clis.sh` — macOS/Linux probe
+- `skills/craft-tools/scripts/find-craft-clis.ps1` — Windows PowerShell probe
+- `skills/craft-tools/references/platform-paths.md` — per-app CLI paths by OS
+- `skills/craft-tools/references/cli-recipes.md` — command examples
+
+Run the probe:
+
+```sh
+sh skills/craft-tools/scripts/find-craft-clis.sh
+```
+
+```powershell
+powershell -ExecutionPolicy Bypass -File skills\craft-tools\scripts\find-craft-clis.ps1
+```
+
+The CLI path works in Claude Code, Cursor, Codex, Gemini CLI, Antigravity, or any agent with shell access. Windows MSI installs the CLI but does not add it to `PATH`; Linux AppImages use the `cli` subcommand where supported.
 
 ## Manual install
 
@@ -157,7 +181,16 @@ craft-tools/
 │   └── logo.svg
 └── skills/
     └── craft-tools/
-        └── SKILL.md            # When and how to use each app
+        ├── SKILL.md            # When and how to use each app
+        ├── references/
+        │   ├── agent-setup.md
+        │   ├── cli-recipes.md
+        │   ├── platform-paths.md
+        │   ├── workflows.md
+        │   └── troubleshooting.md
+        └── scripts/
+            ├── find-craft-clis.sh
+            └── find-craft-clis.ps1
 ```
 
 ## FAQ
@@ -166,14 +199,17 @@ craft-tools/
 Yes. It is an Antigravity plugin that bundles five local stdio MCP servers and a skill. Install it with `agy plugin install`.
 
 **Is this the same as the ArtCraft apps?**
-No. The apps do the creative work; Craft Tools connects them to your AI agent through MCP.
+No. The apps do the creative work; Craft Tools connects them to your AI agent through MCP or their CLIs.
+
+**Does it work on Windows or Linux?**
+Yes, through the app CLIs. The Antigravity plugin is macOS-only; use the CLI path on Windows and Linux.
 
 **Does it work with Gemini CLI?**
-Gemini CLI has been replaced by Antigravity CLI. Use Antigravity — this plugin is built for it.
+Gemini CLI has been replaced by Antigravity CLI for Gemini models. The skill's CLI path still works in Gemini CLI, Claude Code, Cursor, Codex, or any agent with shell access.
 
 **Is this official?**
 No. It is an unofficial community plugin. The ArtCraft apps and Antigravity are separate products.
 
 ## Keywords
 
-Antigravity MCP · ArtCraft MCP · FigCraft MCP · FilmCraft MCP · AniCraft MCP · EffectCraft MCP · VectorCraft MCP · craft-tools · AI creative agents · motion graphics automation · AI video editing · AI animation · vector illustration automation
+Antigravity MCP · ArtCraft MCP · FigCraft MCP · FilmCraft MCP · AniCraft MCP · EffectCraft MCP · VectorCraft MCP · craft-tools · cross-platform CLI · macOS · Windows · Linux · AI creative agents · motion graphics automation · AI video editing · AI animation · vector illustration automation

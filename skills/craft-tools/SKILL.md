@@ -1,50 +1,155 @@
 ---
 name: craft-tools
+version: 1.0.0
+summary: >-
+  Drive FigCraft, FilmCraft, AniCraft, EffectCraft, and VectorCraft from an AI
+  agent on macOS, Windows, or Linux. Inspect, edit, animate, render, and export
+  real projects through Antigravity MCP or the apps' CLIs.
 description: >-
-  Work with ArtCraft's creative apps through their MCP servers: FigCraft for
-  interface design, FilmCraft for video editing, AniCraft for 2D animation,
-  EffectCraft for motion graphics, and VectorCraft for vector illustration. Use
-  when the user asks to inspect, edit, animate, render, or export a .figcraft,
-  .fcproj, .anicraft, .ecproj, or .vectorcraft file, or asks for design, video,
-  animation, motion-graphics, or vector-illustration work.
+  Drive ArtCraft's creative apps from an AI agent on macOS, Windows, or Linux:
+  FigCraft for interface design, FilmCraft for video editing, AniCraft for 2D
+  animation, EffectCraft for motion graphics, and VectorCraft for vector
+  illustration. Works through Antigravity MCP or through the apps' command-line
+  tools in Claude Code, Cursor, Codex, Gemini CLI, or any shell-capable agent.
+  Use for .figcraft, .fcproj, .anicraft, .ecproj, or .vectorcraft files, or for
+  design, video, animation, motion-graphics, and vector-illustration work.
+tags:
+  - artcraft
+  - figcraft
+  - filmcraft
+  - anicraft
+  - effectcraft
+  - vectorcraft
+  - mcp
+  - antigravity
+  - claude-code
+  - cursor
+  - codex
+  - gemini-cli
+  - macos
+  - windows
+  - linux
+keywords:
+  - motion graphics
+  - vector illustration
+  - video editing
+  - 2D animation
+  - creative automation
+  - design automation
+use_cases:
+  - Animate a vector poster
+  - Export a video cut
+  - Produce a looping GIF
+  - Export print-ready vector art
+  - Inspect a creative project before editing
+  - Batch-render previews
 ---
 
 # Craft Tools
 
-Five local MCP servers are available. Antigravity namespaces their tools as
-`craft-tools_<server>_<tool>`.
+Five professional creative apps, one workflow for agents.
 
-| Server | Use it for | First inspection call |
+| App | What it does | Native file |
 | --- | --- | --- |
-| `figcraft` | UI design, frames, components, prototyping | `inspect_document` |
-| `filmcraft` | Video editing, colour, audio, export | `doc_inspect` / `project_inspect` |
-| `anicraft` | 2D animation, tweens, timeline, GIF/video | `anicraft_document` |
-| `effectcraft` | Motion graphics, effects, compositing | `get_project` / `get_comp` |
-| `vectorcraft` | Vector illustration, paths, artboards, gradients | `inspect_document` |
+| **FigCraft** | Interface design, frames, components, prototypes | `.figcraft` |
+| **FilmCraft** | Non-linear video editing, colour, audio, export | `.fcproj` |
+| **AniCraft** | 2D animation, timeline, tweens, symbols | `.anicraft` |
+| **EffectCraft** | Motion graphics, compositing, effects | `.ecproj` |
+| **VectorCraft** | Vector illustration, paths, artboards, print export | `.vectorcraft` |
 
-## Working rules
+The apps ship macOS, Windows, and Linux builds. The CLI path works on all three.
+The published Antigravity plugin is macOS-only for now.
 
-1. Inspect before editing: read the document/project and the current
-   comp/scene/layer. Never guess layer ids or property paths.
-2. Prefer the app's command registry over free-form scripting. Discover
-   commands first (`anicraft_commands`, `command_list`, `list_commands`) and
-   use the documented ids and params.
-3. Confirm before destructive actions: deleting layers, replacing a file,
-   overwriting an export, or discarding unsaved work.
-4. Save to a new file when the user has not given an explicit output path.
-5. After a visual change, render a preview frame or contact sheet to verify the
-   result before exporting.
-6. Report the exact files written and their dimensions/format.
+## Two ways to work
 
-## App notes
+| Path | Works in | Platforms | Tools |
+| --- | --- | --- | --- |
+| **CLI** | Claude Code, Cursor, Codex, Gemini CLI, Antigravity, any agent with shell access | macOS, Windows, Linux | `figcraft-cli`, `filmcraft-cli`, `anicraft-cli`, `effectcraft-cli`, `vectorcraft-cli` |
+| **MCP** | Antigravity with the Craft Tools plugin | macOS (current plugin) | `craft-tools_<server>_<tool>` |
 
-- **FigCraft** and **FilmCraft** attach to the running app when its control
-  port is listening; otherwise they run headless.
-- **AniCraft** is headless only. Save with `file.save`, then open the
-  `.anicraft` file in the app to see it.
-- **EffectCraft** supports a live bridge (`effectcraft-live`), which adds
-  screenshot and `ui_*` tools. Without the bridge it renders on the CPU.
-- **VectorCraft** supports a live bridge (`vectorcraft-live`, port 7979);
-  without it the MCP server uses a headless in-process renderer.
-- Media/project files stay on this Mac. Do not upload them anywhere unless the
-  user asks.
+Prefer the CLI on Windows and Linux. Prefer MCP on macOS when the plugin is
+installed. Both drive the same apps.
+
+## Start here
+
+1. Probe the installed CLIs:
+
+   macOS / Linux:
+
+   ```sh
+   sh scripts/find-craft-clis.sh
+   ```
+
+   Windows PowerShell:
+
+   ```powershell
+   powershell -ExecutionPolicy Bypass -File scripts\find-craft-clis.ps1
+   ```
+
+   The probe prints each CLI path, or `missing`.
+
+2. Inspect before editing:
+
+   - CLI: `<cli> info FILE`, `<cli> inspect`, `<cli> commands`.
+   - MCP: `inspect_document`, `get_project` / `get_comp`, `anicraft_document`.
+
+3. Discover commands instead of guessing. Run `<cli> commands` and
+   `<cli> <command> --help`. CLI flags differ between app versions and
+   platforms; `--help` is the source of truth.
+
+## Platform notes
+
+- **macOS**: the CLIs live in the app bundle, `~/.local/bin`, or
+  `~/.local/share/<app>-cli`.
+- **Windows**: MSI installers put the CLI next to the app under
+  `%LOCALAPPDATA%\Programs\ArtCraft\<App>\`, usually as `<app>-cli.exe`. It is
+  not on `PATH` by default. Portable ZIPs keep it beside the app.
+- **Linux**: deb/rpm packages install `/usr/bin/<app>-cli`; tarballs go to
+  `~/.local/bin`; some AppImages bundle the CLI and run it with `cli`, for
+  example `./FigCraft.AppImage cli --help`.
+- **FreeBSD**: CLI tarballs are available for some apps; use the CLI path.
+
+See `references/platform-paths.md` for the per-app table.
+
+## Golden rules
+
+1. **Inspect first.** Read the document, comp, scene, layer, or selection before
+   editing. Never guess layer ids, object ids, or property paths.
+2. **Use the app's command registry.** Every menu action is a command. Discover
+   it, then run it with documented params. Do not script the UI unless there is
+   no command for the job.
+3. **Confirm destructive actions.** Deleting layers, replacing files,
+   overwriting exports, or discarding unsaved work needs the user's approval.
+4. **Save before exporting.** Use a new path when the user has not supplied one.
+5. **Verify visually.** Render a preview frame, contact sheet, or poster after a
+   visual change, then report the exact files and dimensions.
+6. **Stay local.** Project and media files stay on the user's computer. Do not
+   upload them anywhere unless the user explicitly asks.
+
+## Playbooks
+
+| Goal | Read |
+| --- | --- |
+| Vector poster → animated motion piece | `references/workflows.md` |
+| Brand/design system → UI screens | `references/workflows.md` |
+| Storyboard → looping 2D animation | `references/workflows.md` |
+| Video cut, grade, mix, export | `references/workflows.md` |
+| Vector art → print/social exports | `references/workflows.md` |
+| CLI recipes and OS paths | `references/cli-recipes.md` |
+| Per-app CLI paths by OS | `references/platform-paths.md` |
+| Antigravity, Claude, Cursor, Codex, Gemini setup | `references/agent-setup.md` |
+| Errors and missing tools | `references/troubleshooting.md` |
+
+## Limitations
+
+- The desktop apps and CLIs must be installed. The probe reports what is
+  missing.
+- The published Antigravity plugin is macOS-only. On Windows and Linux, use the
+  CLI path; an MCP server can be configured manually if needed.
+- If your Linux AppImage bundles the CLI, prefix commands with `cli` (for
+  example `./FigCraft.AppImage cli --help`); otherwise use the deb/rpm/tarball
+  build.
+- Some app features are UI-only. In CLI/headless mode, prefer engine commands
+  and exports; use a live MCP bridge when the app supports one.
+- Rendering is CPU-bound in headless mode unless the app's live GPU bridge is
+  used.
